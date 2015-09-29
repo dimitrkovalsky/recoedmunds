@@ -10,7 +10,7 @@ import java.lang.String;
 import java.net.UnknownHostException;
 
 public class DaoFactory {
-    private static String DATABASE_URL = "localhost";
+    private static String DATABASE_URL = "10.168.1.45";
     private static Integer DATABASE_PORT = 27017;
     private static String DATABASE_NAME = "liberty-database";
     private static Datastore datastore;

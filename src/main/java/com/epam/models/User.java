@@ -3,6 +3,8 @@ package com.epam.models;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 
+import java.util.ArrayList;
+
 @Entity(value = "user", noClassnameStored = true)
 public class User {
 	@Id
@@ -12,6 +14,26 @@ public class User {
 	private String description;
 	private String birthday;
 	private String location;
+
+	public ArrayList<Likes> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(ArrayList<Likes> likes) {
+		this.likes = likes;
+	}
+
+	private ArrayList<Likes> likes;
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	private String gender;
 
 	public String getName() {
 		return name;
