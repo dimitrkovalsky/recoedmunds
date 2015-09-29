@@ -18,7 +18,25 @@ public class Notification {
     private Long priceLowerThan;
     private String location;
     private String vin;
+    private String style;
+    private String trim;
     private NotificationType  notificationType;
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getTrim() {
+        return trim;
+    }
+
+    public void setTrim(String trim) {
+        this.trim = trim;
+    }
 
     public NotificationType getNotificationType() {
         return notificationType;
