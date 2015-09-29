@@ -41,4 +41,8 @@ public class DaoFactory {
     public static ICarUpdatesDao getCarUpdatesDao() {
         return new CarUpdatesDao(datastore);
     }
+
+    public static ILikesDao getLikesDao() {
+        return new LikesDao(datastore);
+    }
 }
