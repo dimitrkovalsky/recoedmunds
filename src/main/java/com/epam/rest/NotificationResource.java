@@ -3,6 +3,7 @@ package com.epam.rest;
 import com.epam.beans.INotificationBean;
 import com.epam.errors.ApplicationException;
 import com.epam.models.Inventory;
+import com.epam.requests.NotificationRequest;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -25,9 +26,9 @@ public class NotificationResource {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String add(Inventory data) throws ApplicationException {
-//        System.out.println("POST add : " + data);
-//        inventoryBean.addInventory(data);
-        return "Added Inventory";
+    public String add(String facebookId, NotificationRequest request) throws ApplicationException {
+        System.out.println("[NotificationResource] POST add : " + request);
+        notificationBean.subscribe(facebookId, request);
+        return "Subscribed " + facebookId;
     }
 }
