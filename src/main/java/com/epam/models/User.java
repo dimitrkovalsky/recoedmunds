@@ -7,6 +7,7 @@ import com.google.code.morphia.annotations.Id;
 public class User {
 	@Id
 	private String facebookId;
+    private String accessToken;
 	private String name;
 	private String description;
 	private String birthday;
@@ -50,5 +51,13 @@ public class User {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

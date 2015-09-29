@@ -8,6 +8,8 @@ import com.epam.requests.NotificationRequest;
  * Time: 10:41
  */
 public class NotificationBean implements INotificationBean {
+
+
     @Override
     public void subscribe(String facebookId, NotificationRequest request) {
 

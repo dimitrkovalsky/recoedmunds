@@ -6,5 +6,5 @@ package com.epam.common;
  * Time: 10:52
  */
 public enum NotificationType {
-    PRICE_MONITORING, CAR_AVAILABILITY_MONITORING
+    PRICE_LOWER_THAN, CAR_AVAILABLE
 }
