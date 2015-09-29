@@ -3,13 +3,12 @@ package com.epam.rest;
 import com.epam.beans.IUserBean;
 import com.epam.errors.ApplicationException;
 import com.epam.models.User;
-import java.lang.Integer;
-import java.lang.String;
-import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/users")
 @Stateless
@@ -27,7 +26,7 @@ public class UserResource {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User get(@PathParam("id") Integer id) throws ApplicationException {
+	public User get(@PathParam("id") String id) throws ApplicationException {
 		System.out.println("GET get : " + id);
 		return userBean.getUser(id);
 	}
@@ -52,7 +51,7 @@ public class UserResource {
 
 	@DELETE
 	@Path("{id}")
-	public String delete(@PathParam("id") Integer id) {
+	public String delete(@PathParam("id") String id) {
 		try {
 			userBean.deleteUser(id);
 			return "Removed User with id : " + id;
