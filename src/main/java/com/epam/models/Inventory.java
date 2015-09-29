@@ -26,18 +26,17 @@ public class Inventory {
 
     private Long dealerId;
 
-
     private Integer mileage;
 
     private String listedSince;
     private String inventoryType;
 
-    private Double invoicePrice;
-    private Double msrpPrice;
-    private Double tmvInventoryPrice;
-    private Double dealerOfferPrice;
-    private Double guaranteedPrice;
-    private Double partnerPricePromise;
+    private String invoicePrice;
+    private String msrpPrice;
+    private String tmvInventoryPrice;
+    private String dealerOfferPrice;
+    private String guaranteedPrice;
+    private String partnerPricePromise;
 
     private Double inventoryPrice;
 
@@ -56,19 +55,19 @@ public class Inventory {
         return stockNumber;
     }
 
-    public Double getDealerInvoice() {
+    public String getDealerInvoice() {
         return invoicePrice;
     }
 
-    public Double getDealerMsrp() {
+    public String getDealerMsrp() {
         return msrpPrice;
     }
 
-    public Double getTmv() {
+    public String getTmv() {
         return tmvInventoryPrice;
     }
 
-    public Double getDealerOfferPrice() {
+    public String getDealerOfferPrice() {
         return dealerOfferPrice;
     }
 
@@ -124,27 +123,27 @@ public class Inventory {
         this.dealerId = dealerId;
     }
 
-    public Double getInvoicePrice() {
+    public String getInvoicePrice() {
         return invoicePrice;
     }
 
-    public void setInvoicePrice(Double invoicePrice) {
+    public void setInvoicePrice(String invoicePrice) {
         this.invoicePrice = invoicePrice;
     }
 
-    public Double getMsrpPrice() {
+    public String getMsrpPrice() {
         return msrpPrice;
     }
 
-    public void setMsrpPrice(Double msrpPrice) {
+    public void setMsrpPrice(String msrpPrice) {
         this.msrpPrice = msrpPrice;
     }
 
-    public Double getTmvInventoryPrice() {
+    public String getTmvInventoryPrice() {
         return tmvInventoryPrice;
     }
 
-    public void setTmvInventoryPrice(Double tmvInventoryPrice) {
+    public void setTmvInventoryPrice(String tmvInventoryPrice) {
         this.tmvInventoryPrice = tmvInventoryPrice;
     }
 
@@ -164,23 +163,23 @@ public class Inventory {
         this.dealerLocationId = dealerLocationId;
     }
 
-    public void setDealerOfferPrice(Double dealerOfferPrice) {
+    public void setDealerOfferPrice(String dealerOfferPrice) {
         this.dealerOfferPrice = dealerOfferPrice;
     }
 
-    public Double getGuaranteedPrice() {
+    public String getGuaranteedPrice() {
         return guaranteedPrice;
     }
 
-    public void setGuaranteedPrice(Double guaranteedPrice) {
+    public void setGuaranteedPrice(String guaranteedPrice) {
         this.guaranteedPrice = guaranteedPrice;
     }
 
-    public Double getPartnerPricePromise() {
+    public String getPartnerPricePromise() {
         return partnerPricePromise;
     }
 
-    public void setPartnerPricePromise(Double partnerPricePromise) {
+    public void setPartnerPricePromise(String partnerPricePromise) {
         this.partnerPricePromise = partnerPricePromise;
     }
 

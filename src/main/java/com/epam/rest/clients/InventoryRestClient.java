@@ -12,6 +12,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import javax.ejb.Local;
+import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -22,14 +24,12 @@ import com.epam.models.Inventory;
 import com.epam.models.InventoryListDto;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-@Component
+@Local
 public class InventoryRestClient {
     private boolean emptyFirstPage = false;
     private int pageSize = 500;
@@ -55,10 +55,10 @@ public class InventoryRestClient {
 
     private static final int INVENTORY_TIMEOUT_TIME = 20; //seconds
 
-    @Autowired
+    @Inject
     private CallableExecutorService<InventoryListDto> callableExecutorService;
 
-    @Autowired
+    @Inject
     private Client client;
 
     private int numPreviousYearsNewInventory = 4;
@@ -100,8 +100,8 @@ public class InventoryRestClient {
         InventoryListDto inventoryResponse = target
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get(InventoryListDto.class);
-        if (inventoryResponse != null && isNotEmpty(inventoryResponse.getInventories())) {
-            return inventoryResponse.getInventories().iterator().next();
+        if (inventoryResponse != null && isNotEmpty(inventoryResponse.getResultsList())) {
+            return inventoryResponse.getResultsList().iterator().next();
         }
         return null;
     }
@@ -117,7 +117,7 @@ public class InventoryRestClient {
                 .get(InventoryListDto.class);
 
         final Collection<Inventory> inventories = Sets.newHashSetWithExpectedSize(inventoryResponse.getTotalCount());
-        inventories.addAll(inventoryResponse.getInventories());
+        inventories.addAll(inventoryResponse.getResultsList());
 
         int totalPagesRemaining = (int) Math.ceil((double) (inventoryResponse.getTotalCount() - firstPageSize) / getPageSize());
         if (totalPagesRemaining > 0) {
@@ -133,7 +133,7 @@ public class InventoryRestClient {
                 final List<Future<InventoryListDto>> results = callableExecutorService.executeJobList(jobList);
                 for (Future<InventoryListDto> result : results) {
                     if (result.get(INVENTORY_TIMEOUT_TIME, TimeUnit.SECONDS) != null) {
-                        inventories.addAll(result.get().getInventories());
+                        inventories.addAll(result.get().getResultsList());
                     }
                 }
             } catch (Exception e) {

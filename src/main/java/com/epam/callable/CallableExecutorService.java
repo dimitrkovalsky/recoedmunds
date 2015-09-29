@@ -5,21 +5,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.Local;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
-/**
- * Service to execute Callable tasks.
- * 
- * @author jbuckley
- *
- * @param <E> The type of Callable
- */
-@Component
+@Local
 public class CallableExecutorService<E> {
 
     private int maxThreads = 500;

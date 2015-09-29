@@ -7,10 +7,7 @@ import com.epam.requests.NotificationRequest;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class NotificationResource {
 
     @GET
     @Path("/updates")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     private List<CarUpdate> getUpdates(String facebookId) throws ApplicationException {
         return notificationBean.getUpdates(facebookId);
     }

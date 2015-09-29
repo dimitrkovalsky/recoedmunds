@@ -8,7 +8,7 @@ import java.util.Collection;
 public class InventoryListDto {
 
     private int totalCount;
-    private Collection<Inventory> inventories;
+    private Collection<Inventory> resultsList;
 
     public InventoryListDto() {
     }
@@ -21,12 +21,12 @@ public class InventoryListDto {
         this.totalCount = totalCount;
     }
 
-    public Collection<Inventory> getInventories() {
-        return inventories;
+    public Collection<Inventory> getResultsList() {
+        return resultsList;
     }
 
-    public void setInventories(Collection<Inventory> inventories) {
-        this.inventories = inventories;
+    public void setResultsList(Collection<Inventory> resultsList) {
+        this.resultsList = resultsList;
     }
 
 }

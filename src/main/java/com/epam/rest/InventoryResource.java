@@ -3,24 +3,33 @@ package com.epam.rest;
 import com.epam.beans.IInventoryBean;
 import com.epam.errors.ApplicationException;
 import com.epam.models.Inventory;
+import com.epam.rest.clients.InventoryRestClient;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Path("/inventories")
 @Stateless
 public class InventoryResource {
 	@Inject
 	private IInventoryBean inventoryBean;
+	@Inject
+	private InventoryRestClient inventoryRestClient;
 
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Inventory> getAll() throws ApplicationException {
-		return inventoryBean.getAllInventorys();
+	public Collection<Inventory> getAll() throws ApplicationException {
+		Set<Long> styleIds = new HashSet<>();
+		styleIds.add(200483764L);
+		return inventoryRestClient.getNewInventories(1035l, styleIds);
+		//return inventoryBean.getAllInventorys();
 	}
 
 	@GET

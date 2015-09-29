@@ -8,12 +8,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import java.util.concurrent.Callable;
 
-/**
- * Callable to get Inventory by page number.
- * 
- * @author jbuckley
- *
- */
 public class GetInventoryCallable implements Callable<InventoryListDto> {
     
     private final int pageNum;
