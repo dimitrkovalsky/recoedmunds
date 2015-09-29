@@ -85,4 +85,5 @@ public class Notification {
     public void setId(ObjectId id) {
         this.id = id;
     }
+
 }

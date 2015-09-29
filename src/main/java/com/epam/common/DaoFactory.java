@@ -1,9 +1,6 @@
 package com.epam.common;
 
-import com.epam.dao.IInventoryDao;
-import com.epam.dao.IUserDao;
-import com.epam.dao.InventoryDao;
-import com.epam.dao.UserDao;
+import com.epam.dao.*;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
 import com.mongodb.Mongo;
@@ -35,5 +32,13 @@ public class DaoFactory {
 
     public static IUserDao getUserDao() {
         return new UserDao(datastore);
+    }
+
+    public static INotificationDao getNotificationDao() {
+        return new NotificationDao(datastore);
+    }
+
+    public static ICarUpdatesDao getCarUpdatesDao() {
+        return new CarUpdatesDao(datastore);
     }
 }

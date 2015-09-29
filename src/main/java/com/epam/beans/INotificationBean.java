@@ -1,6 +1,10 @@
 package com.epam.beans;
 
+import com.epam.errors.ApplicationException;
+import com.epam.models.CarUpdate;
 import com.epam.requests.NotificationRequest;
+
+import java.util.List;
 
 /**
  * User: Dimitr
@@ -8,5 +12,9 @@ import com.epam.requests.NotificationRequest;
  * Time: 10:41
  */
 public interface INotificationBean {
-    void subscribe(String facebookId, NotificationRequest request);
+    void monitor(String facebookId, NotificationRequest request) throws ApplicationException;
+
+    List<CarUpdate> getUpdates(String facebookId) throws ApplicationException;
+
+    void saveUpdate(CarUpdate carUpdate) throws ApplicationException;
 }

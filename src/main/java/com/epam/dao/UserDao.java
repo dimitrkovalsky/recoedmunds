@@ -4,11 +4,10 @@ import com.epam.errors.DaoException;
 import com.epam.models.User;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.dao.BasicDAO;
-import java.lang.Exception;
-import java.lang.Integer;
+
 import java.util.List;
 
-public class UserDao extends BasicDAO<User, Integer> implements IUserDao {
+public class UserDao extends BasicDAO<User, String> implements IUserDao {
 	public UserDao(Datastore datastore){
 		super(datastore);
 	}
