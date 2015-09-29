@@ -1,5 +1,6 @@
 package com.epam.models;
 
+import com.epam.common.NotificationType;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import org.bson.types.ObjectId;
@@ -16,7 +17,16 @@ public class Notification {
     private String facebookId;
     private Long priceLowerThan;
     private String location;
-    private String carId;
+    private String vin;
+    private NotificationType  notificationType;
+
+    public NotificationType getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(NotificationType notificationType) {
+        this.notificationType = notificationType;
+    }
 
     public String getFacebookId() {
         return facebookId;
@@ -42,12 +52,12 @@ public class Notification {
         this.location = location;
     }
 
-    public String getCarId() {
-        return carId;
+    public String getVin() {
+        return vin;
     }
 
-    public void setCarId(String carId) {
-        this.carId = carId;
+    public void setVin(String vin) {
+        this.vin = vin;
     }
 
     public ObjectId getId() {
