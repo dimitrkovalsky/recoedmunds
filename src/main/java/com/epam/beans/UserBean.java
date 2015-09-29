@@ -8,7 +8,7 @@ import java.lang.Integer;
 import java.util.List;
 
 public class UserBean implements IUserBean {
-	public User getUser(Integer id) throws ApplicationException {
+	public User getUser(String id) throws ApplicationException {
 		return DaoFactory.getUserDao().findById(id);
 	}
 
@@ -26,9 +26,9 @@ public class UserBean implements IUserBean {
 		dao.update(user);
 	}
 
-	public void deleteUser(Integer id) throws ApplicationException {
+	public void deleteUser(String id) throws ApplicationException {
 		IUserDao dao = DaoFactory.getUserDao();
 		User user = new User();
-		user.setId(id);
+		user.setFacebookId(id);
 	}
 }
