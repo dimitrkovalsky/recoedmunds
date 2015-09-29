@@ -2,20 +2,15 @@ package com.epam.models;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
-import java.lang.Integer;
-import java.lang.String;
 
 @Entity(value = "user", noClassnameStored = true)
 public class User {
 	@Id
-	private Integer id;
+	private String facebookId;
 	private String name;
 	private String description;
 	private String birthday;
-
-	public Integer getId() {
-		return id;
-	}
+	private String location;
 
 	public String getName() {
 		return name;
@@ -29,10 +24,6 @@ public class User {
 		return birthday;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -44,4 +35,20 @@ public class User {
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

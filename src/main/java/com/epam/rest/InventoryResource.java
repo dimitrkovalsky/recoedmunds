@@ -3,15 +3,14 @@ package com.epam.rest;
 import com.epam.beans.IInventoryBean;
 import com.epam.errors.ApplicationException;
 import com.epam.models.Inventory;
-import java.lang.Integer;
-import java.lang.String;
-import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
-@Path("/inventorys")
+@Path("/inventories")
 @Stateless
 public class InventoryResource {
 	@Inject

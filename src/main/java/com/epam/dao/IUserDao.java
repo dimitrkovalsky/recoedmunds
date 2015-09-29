@@ -1,9 +1,9 @@
 package com.epam.dao;
 
-import com.epam.models.User;
-import java.util.List;
-import java.lang.Integer;
 import com.epam.errors.DaoException;
+import com.epam.models.User;
+
+import java.util.List;
 
 public interface IUserDao {
 
@@ -13,7 +13,7 @@ public interface IUserDao {
 
 	public List<User> findAll() throws DaoException;
 
-	public User findById(Integer id) throws DaoException;
+	public User findById(String id) throws DaoException;
 
 	public void update(User entity) throws DaoException;
 }

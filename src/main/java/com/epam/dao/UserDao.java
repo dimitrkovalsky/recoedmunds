@@ -23,7 +23,7 @@ public class UserDao extends BasicDAO<User, Integer> implements IUserDao {
 
 	public User find(User entity) throws DaoException {
 		try {
-			return super.findOne("_id", entity.getId());
+			return super.findOne("_id", entity.getFacebookId());
 		} catch(Exception e){
 			throw new DaoException(e);
 		}
@@ -37,7 +37,7 @@ public class UserDao extends BasicDAO<User, Integer> implements IUserDao {
 		}
 	}
 
-	public User findById(Integer id) throws DaoException {
+	public User findById(String id) throws DaoException {
 		try {
 			return super.findOne("_id", id);
 		} catch(Exception e){
