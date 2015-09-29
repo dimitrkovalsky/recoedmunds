@@ -38,7 +38,7 @@ public class Inventory {
     private String guaranteedPrice;
     private String partnerPricePromise;
 
-    private Double inventoryPrice;
+    private String inventoryPrice;
 
     public Inventory() {
     }
@@ -199,11 +199,11 @@ public class Inventory {
         this.listedSince = listedSince;
     }
 
-    public Double getInventoryPrice() {
+    public String getInventoryPrice() {
         return inventoryPrice;
     }
 
-    public void setInventoryPrice(Double inventoryPrice) {
+    public void setInventoryPrice(String inventoryPrice) {
         this.inventoryPrice = inventoryPrice;
     }
 

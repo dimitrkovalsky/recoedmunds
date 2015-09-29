@@ -19,17 +19,14 @@ import java.util.Set;
 public class InventoryResource {
 	@Inject
 	private IInventoryBean inventoryBean;
-	@Inject
-	private InventoryRestClient inventoryRestClient;
+
 
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Inventory> getAll() throws ApplicationException {
-		Set<Long> styleIds = new HashSet<>();
-		styleIds.add(200483764L);
-		return inventoryRestClient.getNewInventories(1035l, styleIds);
-		//return inventoryBean.getAllInventorys();
+
+		return inventoryBean.getAllInventorys();
 	}
 
 	@GET

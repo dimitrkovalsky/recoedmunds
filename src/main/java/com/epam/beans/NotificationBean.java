@@ -1,8 +1,6 @@
 package com.epam.beans;
 
 import com.epam.common.DaoFactory;
-import com.epam.common.NotificationType;
-import com.epam.dao.INotificationDao;
 import com.epam.errors.ApplicationException;
 import com.epam.errors.DaoException;
 import com.epam.models.CarUpdate;
@@ -20,30 +18,40 @@ import java.util.List;
 public class NotificationBean implements INotificationBean {
 
 
-    @Override
-    public void monitor(String facebookId, NotificationRequest request) throws ApplicationException {
-        INotificationDao dao = DaoFactory.getNotificationDao();
+//    @Override
+//    public void monitor(String facebookId, NotificationRequest request) throws ApplicationException {
+//        INotificationDao dao = DaoFactory.getNotificationDao();
+//
+//        switch (request.getNotificationType()) {
+//            case PRICE_LOWER_THAN:
+//                savePriceMonitoringNotification(request);
+//                break;
+//            case CAR_AVAILABLE:
+//                Notification notification = createBaseNotification(request);
+//                notification.setNotificationType(NotificationType.CAR_AVAILABLE);
+//                saveNotification(notification);
+//                break;
+//            case MONITOR_ALL:
+//                Notification baseNotification = createBaseNotification(request);
+//                baseNotification.setNotificationType(NotificationType.MONITOR_ALL);
+//                saveNotification(baseNotification);
+//                break;
+//        }
+//    }
 
-        switch (request.getNotificationType()) {
-            case PRICE_LOWER_THAN:
-                savePriceMonitoringNotification(request);
-                break;
-            case CAR_AVAILABLE:
-                Notification notification = createBaseNotification(request);
-                notification.setNotificationType(NotificationType.CAR_AVAILABLE);
-                saveNotification(notification);
-                break;
-            case MONITOR_ALL:
-                Notification baseNotification = createBaseNotification(request);
-                baseNotification.setNotificationType(NotificationType.MONITOR_ALL);
-                saveNotification(baseNotification);
-                break;
-        }
+    @Override
+    public void add(NotificationRequest request) throws ApplicationException {
+        savePriceMonitoringNotification(request);
+    }
+
+    @Override
+    public List<Notification> getAll() throws ApplicationException {
+        return  DaoFactory.getNotificationDao().findAll();
     }
 
     @Override
     public List<CarUpdate> getUpdates(String facebookId) throws ApplicationException {
-        return DaoFactory.getCarUpdatesDao().findAll(facebookId);
+        return DaoFactory.getCarUpdatesDao().findAllByFBId(facebookId);
     }
 
     @Override
@@ -53,9 +61,6 @@ public class NotificationBean implements INotificationBean {
 
     private void savePriceMonitoringNotification(NotificationRequest request) throws DaoException {
         Notification notification = createBaseNotification(request);
-        notification.setNotificationType(NotificationType.PRICE_LOWER_THAN);
-        notification.setPriceLowerThan(request.getPriceLowerThan());
-
         saveNotification(notification);
     }
 
@@ -66,9 +71,11 @@ public class NotificationBean implements INotificationBean {
     private Notification createBaseNotification(NotificationRequest request) {
         Notification notification = new Notification();
         notification.setId(new ObjectId());
-        notification.setStyle(request.getStyle());
-        notification.setTrim(request.getTrim());
+        notification.setStyleId(request.getStyleId());
+        notification.setFacebookId(request.getFacebookId());
+        notification.setPriceLowerThan(request.getPriceLowerThan());
         notification.setVin(request.getVin());
+        notification.setNotificationType(request.getNotificationType());
         return notification;
     }
 }

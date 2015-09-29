@@ -10,9 +10,17 @@ public class LikeRequest {
     private String url;
     private String location;
     private String vin;
-    private String style;
     private String trim;
     private Long price;
+    private Long styleId;
+
+    public Long getStyleId() {
+        return styleId;
+    }
+
+    public void setStyleId(Long styleId) {
+        this.styleId = styleId;
+    }
 
     public String getFacebookId() {
         return facebookId;
@@ -46,13 +54,7 @@ public class LikeRequest {
         this.vin = vin;
     }
 
-    public String getStyle() {
-        return style;
-    }
 
-    public void setStyle(String style) {
-        this.style = style;
-    }
 
     public String getTrim() {
         return trim;
@@ -77,7 +79,7 @@ public class LikeRequest {
                 ", url='" + url + '\'' +
                 ", location='" + location + '\'' +
                 ", vin='" + vin + '\'' +
-                ", style='" + style + '\'' +
+                ", styleId='" + styleId + '\'' +
                 ", trim='" + trim + '\'' +
                 ", price=" + price +
                 '}';

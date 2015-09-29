@@ -15,7 +15,16 @@ public class CarUpdate {
     private ObjectId id;
     private String facebookId;
     private String notificationId;
-    private Boolean updated;
+    private String vin;
+    private String make;
+    private String model;
+    private String year;
+
+    private String bodyType;
+    private String trim;
+
+    private Long styleId;
+    private String msrpPrice;
 
     public ObjectId getId() {
         return id;
@@ -41,11 +50,67 @@ public class CarUpdate {
         this.notificationId = notificationId;
     }
 
-    public Boolean getUpdated() {
-        return updated;
+    public String getVin() {
+        return vin;
     }
 
-    public void setUpdated(Boolean updated) {
-        this.updated = updated;
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
+    }
+
+    public String getTrim() {
+        return trim;
+    }
+
+    public void setTrim(String trim) {
+        this.trim = trim;
+    }
+
+    public Long getStyleId() {
+        return styleId;
+    }
+
+    public void setStyleId(Long styleId) {
+        this.styleId = styleId;
+    }
+
+    public String getMsrpPrice() {
+        return msrpPrice;
+    }
+
+    public void setMsrpPrice(String msrpPrice) {
+        this.msrpPrice = msrpPrice;
     }
 }

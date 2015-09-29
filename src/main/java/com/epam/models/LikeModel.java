@@ -17,9 +17,17 @@ public class LikeModel {
     private String url;
     private String location;
     private String vin;
-    private String style;
+    private Long styleId;
     private String trim;
     private Long price;
+
+    public Long getStyleId() {
+        return styleId;
+    }
+
+    public void setStyleId(Long styleId) {
+        this.styleId = styleId;
+    }
 
     public ObjectId getId() {
         return id;
@@ -59,14 +67,6 @@ public class LikeModel {
 
     public void setVin(String vin) {
         this.vin = vin;
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
     }
 
     public String getTrim() {

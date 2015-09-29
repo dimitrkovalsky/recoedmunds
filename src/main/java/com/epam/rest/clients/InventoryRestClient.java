@@ -2,6 +2,7 @@ package com.epam.rest.clients;
 
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.join;
+import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 
 import java.util.Calendar;
 import java.util.Collection;
@@ -23,6 +24,7 @@ import com.epam.callable.GetInventoryCallable;
 import com.epam.models.Inventory;
 import com.epam.models.InventoryListDto;
 
+import com.epam.models.Notification;
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -87,14 +89,6 @@ public class InventoryRestClient {
         return pageSize;
     }
 
-    public Collection<Inventory> getNewInventories(long locationId, Set<Long> styleIds) {
-        return getInventories(locationId, TYPE_PARAM_NEW, styleIds, getLastNYears(numPreviousYearsNewInventory));
-    }
-
-    public Collection<Inventory> getUsedInventories(long locationId, Set<Long> styleIds) {
-        return getInventories(locationId, TYPE_PARAM_USED, styleIds, null);
-    }
-
     public Inventory getInventoryByVin(String vin) {
         WebTarget target = prepareWebTarget(vin);
         InventoryListDto inventoryResponse = target
@@ -106,11 +100,11 @@ public class InventoryRestClient {
         return null;
     }
 
-    Collection<Inventory> getInventories(long locationId, String type, Set<Long> styleIds, Collection<Integer> years) {
-
+   // Collection<Inventory> getInventories(long locationId, String type, Set<Long> styleIds, Collection<Integer> years, String make, String model, String color) {
+   Collection<Inventory> getInventories(Notification notification) {
         int firstPageSize = isEmptyFirstPage() ? 0 : getPageSize();
-        WebTarget firstPageTarget = prepareWebTarget(locationId, type, styleIds, years, firstPageSize);
-        WebTarget target = prepareWebTarget(locationId, type, styleIds, years, getPageSize());
+        WebTarget firstPageTarget = prepareWebTarget(notification, firstPageSize);
+        WebTarget target = prepareWebTarget(notification, getPageSize());
 
         InventoryListDto inventoryResponse = firstPageTarget
                 .request(MediaType.APPLICATION_JSON_TYPE)
@@ -144,7 +138,39 @@ public class InventoryRestClient {
         return inventories;
     }
 
-    WebTarget prepareWebTarget(long locationId, String type, Set<Long> styleIds, Collection<Integer> years, int pageSizeValue) {
+    private WebTarget prepareWebTarget(Notification notification, int pageSize) {
+        WebTarget target = client
+                .target(InventoryUri)
+                .path(VEHICLE_INVENTORY_PATH)
+                .queryParam(FRANCHISE_ID, ANY_VALUE)
+                .queryParam(PAGE_SIZE, pageSize)
+//                .queryParam(INVENTORY_TYPE, type)
+                .queryParam(WITH_PHOTOS, false);
+                        //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
+//                .queryParam(FILTER, STYLE_PARAM + (isNotEmpty(styleIds) ? join(styleIds, OR_SEPARATOR) : ANY_VALUE));
+        //.queryParam(VIEW_BASIC, "true");
+
+        if (notification.getStyleId() != null) {
+            target = target.queryParam(FILTER, STYLE_PARAM + notification.getStyleId());
+        }
+        if (notification.getYear() != null) {
+            target = target.queryParam(YEARS, notification.getYear());
+        }
+        if (notification.getMake() != null) {
+            target = target.queryParam("make:", notification.getMake());
+        }
+        if (notification.getModel() != null) {
+            target = target.queryParam("model:", notification.getModel());
+        }
+//
+//        if (color != null) {
+//            target = target.queryParam("extColors:", color);
+//        }
+
+        return target;
+    }
+
+    WebTarget prepareWebTarget(long locationId, String type, Set<Long> styleIds, Collection<Integer> years,  String make, String model, String color, int pageSizeValue) {
         WebTarget target = client
                 .target(InventoryUri)
                 .path(VEHICLE_INVENTORY_PATH)
@@ -152,18 +178,26 @@ public class InventoryRestClient {
                 .queryParam(PAGE_SIZE, pageSizeValue)
                 .queryParam(INVENTORY_TYPE, type)
                 .queryParam(WITH_PHOTOS, false)
-                .queryParam(FILTER, LOCATION_ID_PARAM + locationId)
-                .queryParam(FILTER, STYLE_PARAM + (isNotEmpty(styleIds) ? join(styleIds, OR_SEPARATOR) : ANY_VALUE))
-                .queryParam(VIEW_BASIC, "true");
+                //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
+                .queryParam(FILTER, STYLE_PARAM + (isNotEmpty(styleIds) ? join(styleIds, OR_SEPARATOR) : ANY_VALUE));
+        //.queryParam(VIEW_BASIC, "true");
 
         if (years != null) {
             String yearsParam = StringUtils.join(years, ":");
             target = target.queryParam(YEARS, yearsParam);
         }
+        if (make != null) {
+            target = target.queryParam("make:", make);
+        }
+        if (model != null) {
+            target = target.queryParam("model:", model);
+        }
+        if (color != null) {
+            target = target.queryParam("extColors:", color);
+        }
 
         return target;
     }
-
     WebTarget prepareWebTarget(String vin) {
         return client
                 .target(InventoryUri)
@@ -174,17 +208,9 @@ public class InventoryRestClient {
                 .queryParam(VIEW_BASIC, "true");
     }
 
-
-    List<Integer> getLastNYears(int n) {
-        List<Integer> lastNYears = Lists.newLinkedList();
-        int currentYear = new GregorianCalendar().get(Calendar.YEAR);
-
-        lastNYears.add(currentYear + 1);
-
-        for (int i = 0; i <= n - 1; i++) {
-            lastNYears.add(currentYear - i);
-        }
-
-        return lastNYears;
+    public Collection<Inventory> getAllInventories(Notification notification) {
+        return getInventories(notification);
     }
+
+
 }

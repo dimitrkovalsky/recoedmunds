@@ -24,7 +24,7 @@ public class RecommendationBean implements IRecommendationBean {
         model.setId(new ObjectId());
         model.setLocation(request.getLocation());
         model.setPrice(request.getPrice());
-        model.setStyle(request.getStyle());
+        model.setStyleId(request.getStyleId());
         model.setTrim(request.getTrim());
         model.setVin(request.getVin());
         model.setUrl(request.getUrl());

@@ -1,6 +1,7 @@
 package com.epam.schedulers;
 
-import com.epam.beans.INotificationBean;
+import com.epam.errors.ApplicationException;
+import com.epam.serices.Monitor;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -14,10 +15,10 @@ import javax.inject.Inject;
 @Singleton
 public class NotificationScheduler {
     @Inject
-    private INotificationBean notificationBean;
+    private Monitor monitor;
 
     @Schedule(second = "*/1", minute = "*", hour = "*")
-    public void doWork() {
-        System.out.println("[NotificationScheduler] updates");
+    public void doWork() throws ApplicationException {
+        monitor.process();
     }
 }

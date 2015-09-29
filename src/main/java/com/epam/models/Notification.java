@@ -18,24 +18,18 @@ public class Notification {
     private Long priceLowerThan;
     private String location;
     private String vin;
-    private String style;
-    private String trim;
+    private Long styleId;
+    private String make;
+    private String model;
+    private String year;
     private NotificationType  notificationType;
 
-    public String getStyle() {
-        return style;
+    public Long getStyleId() {
+        return styleId;
     }
 
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    public String getTrim() {
-        return trim;
-    }
-
-    public void setTrim(String trim) {
-        this.trim = trim;
+    public void setStyleId(Long styleId) {
+        this.styleId = styleId;
     }
 
     public NotificationType getNotificationType() {
@@ -86,4 +80,27 @@ public class Notification {
         this.id = id;
     }
 
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
 }

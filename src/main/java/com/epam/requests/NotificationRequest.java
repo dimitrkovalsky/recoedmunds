@@ -2,6 +2,8 @@ package com.epam.requests;
 
 import com.epam.common.NotificationType;
 
+import javax.ejb.Local;
+
 /**
  * User: Dimitr
  * Date: 29.09.2015
@@ -11,10 +13,35 @@ public class NotificationRequest {
     private NotificationType notificationType;
     private String facebookId;
     private Long priceLowerThan;
-    private String location;
     private String vin;
-    private String style;
-    private String trim;
+    private Long styleId;
+    private String make;
+    private String model;
+    private String year;
+
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
 
     public NotificationType getNotificationType() {
         return notificationType;
@@ -40,14 +67,6 @@ public class NotificationRequest {
         this.priceLowerThan = priceLowerThan;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getVin() {
         return vin;
     }
@@ -56,20 +75,12 @@ public class NotificationRequest {
         this.vin = vin;
     }
 
-    public String getStyle() {
-        return style;
+    public Long getStyleId() {
+        return styleId;
     }
 
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    public String getTrim() {
-        return trim;
-    }
-
-    public void setTrim(String trim) {
-        this.trim = trim;
+    public void setStyleId(Long styleId) {
+        this.styleId = styleId;
     }
 }
 

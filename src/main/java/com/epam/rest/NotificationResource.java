@@ -25,10 +25,10 @@ public class NotificationResource {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String add(String facebookId, NotificationRequest request) throws ApplicationException {
+    public String add(NotificationRequest request) throws ApplicationException {
         System.out.println("[NotificationResource] POST add : " + request);
-        notificationBean.monitor(facebookId, request);
-        return "Subscribed " + facebookId;
+        notificationBean.add(request);
+        return "Subscribed " + request.getFacebookId();
     }
 
     @GET
