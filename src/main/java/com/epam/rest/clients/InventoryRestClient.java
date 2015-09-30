@@ -141,7 +141,9 @@ public class InventoryRestClient {
     }
 
     private WebTarget prepareWebTarget(Notification notification, int pageSize) {
+        //"http://inventorysolr.qa-2.vip.edmunds.com:8080/solr/collection1/select?q=*%3A*&fq=mappings_%7Cmake%7C%3AChrysler&fq=mappings_%7Cmodel%7C%3AAspen&wt=json&indent=true"
         WebTarget target = client
+
                 .target(InventoryUri)
                 .path(VEHICLE_INVENTORY_PATH)
                 .queryParam(FRANCHISE_ID, ANY_VALUE)
@@ -152,23 +154,28 @@ public class InventoryRestClient {
 //                .queryParam(FILTER, STYLE_PARAM + (isNotEmpty(styleIds) ? join(styleIds, OR_SEPARATOR) : ANY_VALUE));
         .queryParam(VIEW_BASIC, "true");
 
-        if (notification.getStyleId() != null) {
-            target = target.queryParam(FILTER, STYLE_PARAM + notification.getStyleId());
-        }
-        if (notification.getYear() != null) {
-            target = target.queryParam(YEARS, notification.getYear());
-        }
-        if (notification.getMake() != null) {
-            target = target.queryParam("make:", notification.getMake());
-        }
-        if (notification.getModel() != null) {
-            target = target.queryParam("model:", notification.getModel());
-        }
+//        if (notification.getStyleId() != null) {
+//            target = target.queryParam(FILTER, STYLE_PARAM + notification.getStyleId());
+//        }
+//        if (notification.getYear() != null) {
+//            target = target.queryParam(YEARS, notification.getYear());
+//        }
+//        if (notification.getMake() != null) {
+//            target = target.queryParam("make", notification.getMake());
+//        }
+//        if (notification.getModel() != null) {
+//            target = target.queryParam("model", notification.getModel());
+//        }
+//
+//        if (NotificationType.PRICE_LOWER_THAN.equals(notification.getNotificationType()) && notification.getPriceLowerThan() != null) {
+////            target = target.queryParam(ADVANCED_FILTER, "prices_|msrp-used-for-sorting|:[* TO "+ notification.getPriceLowerThan()+"]" );
+//
+//        }else if (notification.getVin() != null) {
+//            target = target.queryParam(ADVANCED_FILTER, VIN_PARAM + notification.getVin());
+//        }
 
-        if (NotificationType.PRICE_LOWER_THAN.equals(notification.getNotificationType()) && notification.getPriceLowerThan() != null) {
-            target = target.queryParam(ADVANCED_FILTER, "prices_|msrp-used-for-sorting|:[* TO "+ notification.getPriceLowerThan()+"]" );
-        }else if (notification.getVin() != null) {
-            target = target.queryParam(ADVANCED_FILTER, VIN_PARAM + notification.getVin());
+        if(notification.getModel() == "Aspen" ){
+            target = target.queryParam(ADVANCED_FILTER, "mappings_|model|:Aspen" );
         }
 //
 //        if (color != null) {
@@ -195,13 +202,13 @@ public class InventoryRestClient {
             target = target.queryParam(YEARS, yearsParam);
         }
         if (make != null) {
-            target = target.queryParam("make:", make);
+            target = target.queryParam("make", make);
         }
         if (model != null) {
-            target = target.queryParam("model:", model);
+            target = target.queryParam("model", model);
         }
         if (color != null) {
-            target = target.queryParam("extColors:", color);
+            target = target.queryParam("extColors", color);
         }
 
 
