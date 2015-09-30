@@ -3,8 +3,10 @@ package com.epam.facebookApi;
 import com.epam.models.Likes;
 import com.epam.models.User;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mongodb.util.JSON;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,6 +24,7 @@ public class FacebookDataGrabber {
     private static final String PERSONAL_DATA = "/me";
     private static final String GROUPS = "/me/groups";
     private static final String LIKES = "/me/likes";
+    private static final String NOTIFY = "/notifications";
     private static final String ACCESS_TOKEN = "access_token";
     private static final String CLIENT_ID_FIELD = "client_id";
     private static final String CLIENT_ID_VALUE="1608409702752496";
@@ -87,10 +90,13 @@ public class FacebookDataGrabber {
             JSONArray array = (JSONArray) jsonObj.get("data");
             ArrayList<Likes> likesList = new ArrayList<>();
             for (int i = 0; i < array.size(); i++) {
-                Likes like = new Likes();
-                like.setName((String) ((JSONObject) array.get(i)).get("name"));
-                like.setCategory((String) ((JSONObject) array.get(i)).get("category"));
-                likesList.add(like);
+                String category = (String) ((JSONObject) array.get(i)).get("category");
+                if(category.contains("Car")||category.contains("Automobiles")){
+                    Likes like = new Likes();
+                    like.setName((String) ((JSONObject) array.get(i)).get("name"));
+                    like.setCategory(category);
+                    likesList.add(like);
+                }
             }
             user.setLikes(likesList);
 
@@ -100,9 +106,22 @@ public class FacebookDataGrabber {
         return user;
     }
 
-    public boolean sendNotify(String href,String template){
+    public boolean sendNotify(String href,String template,String userID){
         String accesKey = getAcessKey();
-        return false;
+        JSONParser parser = new JSONParser();
+        HttpResponse<String> jsonResponse = null;
+        href = "\"href\":\""+href+"\"";
+        template = "\"template\":\""+template+"\"";
+        accesKey = "\"access_token\":\""+accesKey.substring(13)+"\"";
+        try {
+            String body = "{"+accesKey+','+href+','+template+ "}";
+            JsonNode value = new JsonNode(body);
+            jsonResponse = Unirest.post(BASE_PATH + "/" + userID+ NOTIFY)
+                    .header("Content-Type", "application/json").body(value).asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     private String getAcessKey(){
