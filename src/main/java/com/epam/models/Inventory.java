@@ -19,7 +19,7 @@ public class Inventory {
     private String bodyType;
     private String trim;
 
-    private Long styleId;
+    private String styleId;
     private String stockNumber;
 
     private Long dealerLocationId;
@@ -55,7 +55,7 @@ public class Inventory {
         return vin;
     }
 
-    public Long getStyleId() {
+    public String getStyleId() {
         return styleId;
     }
 
@@ -159,7 +159,7 @@ public class Inventory {
         this.vin = vin;
     }
 
-    public void setStyleId(Long styleId) {
+    public void setStyleId(String styleId) {
         this.styleId = styleId;
     }
 

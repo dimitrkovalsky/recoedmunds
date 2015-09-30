@@ -17,7 +17,7 @@ public class NotificationScheduler {
     @Inject
     private Monitor monitor;
 
-    @Schedule(second = "*/1", minute = "*", hour = "*")
+    @Schedule(second = "*/10", minute = "*", hour = "*")
     public void doWork() throws ApplicationException {
         monitor.process();
     }

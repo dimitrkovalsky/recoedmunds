@@ -23,7 +23,7 @@ public class CarUpdate {
     private String bodyType;
     private String trim;
 
-    private Long styleId;
+    private String styleId;
     private String msrpPrice;
 
     public ObjectId getId() {
@@ -98,11 +98,11 @@ public class CarUpdate {
         this.trim = trim;
     }
 
-    public Long getStyleId() {
+    public String getStyleId() {
         return styleId;
     }
 
-    public void setStyleId(Long styleId) {
+    public void setStyleId(String styleId) {
         this.styleId = styleId;
     }
 

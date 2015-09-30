@@ -40,6 +40,7 @@ public class InventoryRestClient {
     private static final String VEHICLE_INVENTORY_PATH = "api/uinventory/getvehicleinventory";
     private static final String PURCHASE_DISCLAIMER_PATH = "api/inventory/v2/states/%s/purchasedisclaimer";
     private static final String InventoryUri = "http://qa-2-www.edmunds.com";
+    //private static final String InventoryUri = "http://qa-11-www.edmunds.com";
     private static final String FRANCHISE_ID = "dealerId";
     private static final String PAGE_SIZE = "pageSize";
     private static final String INVENTORY_TYPE = "types";
