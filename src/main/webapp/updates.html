@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    function sendRequest(data) {
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:8080/recoedmunds/rest/notifications/updates',
+            contentType:"application/json",
+            data: data,
+            dataType:"json"
+        }).done(function( msg ) {
+            debugger
+        });
+    }
+    var req = {
+        facebookId: "100001646770792"
+    };
+    var json = JSON.stringify(req);
+    sendRequest(json);
+</script>
+</body>
+</html>

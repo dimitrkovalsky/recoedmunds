@@ -76,6 +76,8 @@ public class NotificationBean implements INotificationBean {
         notification.setPriceLowerThan(request.getPriceLowerThan());
         notification.setVin(request.getVin());
         notification.setNotificationType(request.getNotificationType());
+        notification.setMake(request.getMake());
+        notification.setModel(request.getModel());
         return notification;
     }
 }
