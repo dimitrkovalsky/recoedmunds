@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.epam.callable.CallableExecutorService;
 import com.epam.callable.GetInventoryCallable;
+import com.epam.common.NotificationType;
 import com.epam.models.Inventory;
 import com.epam.models.InventoryListDto;
 
@@ -100,8 +101,8 @@ public class InventoryRestClient {
         return null;
     }
 
-   // Collection<Inventory> getInventories(long locationId, String type, Set<Long> styleIds, Collection<Integer> years, String make, String model, String color) {
-   Collection<Inventory> getInventories(Notification notification) {
+    // Collection<Inventory> getInventories(long locationId, String type, Set<Long> styleIds, Collection<Integer> years, String make, String model, String color) {
+    Collection<Inventory> getInventories(Notification notification) {
         int firstPageSize = isEmptyFirstPage() ? 0 : getPageSize();
         WebTarget firstPageTarget = prepareWebTarget(notification, firstPageSize);
         WebTarget target = prepareWebTarget(notification, getPageSize());
@@ -145,10 +146,10 @@ public class InventoryRestClient {
                 .queryParam(FRANCHISE_ID, ANY_VALUE)
                 .queryParam(PAGE_SIZE, pageSize)
 //                .queryParam(INVENTORY_TYPE, type)
-                .queryParam(WITH_PHOTOS, false);
-                        //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
+                .queryParam(WITH_PHOTOS, false)
+        //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
 //                .queryParam(FILTER, STYLE_PARAM + (isNotEmpty(styleIds) ? join(styleIds, OR_SEPARATOR) : ANY_VALUE));
-        //.queryParam(VIEW_BASIC, "true");
+        .queryParam(VIEW_BASIC, "true");
 
         if (notification.getStyleId() != null) {
             target = target.queryParam(FILTER, STYLE_PARAM + notification.getStyleId());
@@ -162,6 +163,12 @@ public class InventoryRestClient {
         if (notification.getModel() != null) {
             target = target.queryParam("model:", notification.getModel());
         }
+
+        if (NotificationType.PRICE_LOWER_THAN.equals(notification.getNotificationType()) && notification.getPriceLowerThan() != null) {
+            target = target.queryParam(ADVANCED_FILTER, "prices_|msrp-used-for-sorting|:[* TO "+ notification.getPriceLowerThan()+"]" );
+        }else if (notification.getVin() != null) {
+            target = target.queryParam(ADVANCED_FILTER, VIN_PARAM + notification.getVin());
+        }
 //
 //        if (color != null) {
 //            target = target.queryParam("extColors:", color);
@@ -170,7 +177,7 @@ public class InventoryRestClient {
         return target;
     }
 
-    WebTarget prepareWebTarget(long locationId, String type, Set<Long> styleIds, Collection<Integer> years,  String make, String model, String color, int pageSizeValue) {
+    WebTarget prepareWebTarget(long locationId, String type, Set<Long> styleIds, Collection<Integer> years, String make, String model, String color, int pageSizeValue) {
         WebTarget target = client
                 .target(InventoryUri)
                 .path(VEHICLE_INVENTORY_PATH)
@@ -178,7 +185,7 @@ public class InventoryRestClient {
                 .queryParam(PAGE_SIZE, pageSizeValue)
                 .queryParam(INVENTORY_TYPE, type)
                 .queryParam(WITH_PHOTOS, false)
-                //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
+                        //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
                 .queryParam(FILTER, STYLE_PARAM + (isNotEmpty(styleIds) ? join(styleIds, OR_SEPARATOR) : ANY_VALUE));
         //.queryParam(VIEW_BASIC, "true");
 
@@ -196,8 +203,10 @@ public class InventoryRestClient {
             target = target.queryParam("extColors:", color);
         }
 
+
         return target;
     }
+
     WebTarget prepareWebTarget(String vin) {
         return client
                 .target(InventoryUri)

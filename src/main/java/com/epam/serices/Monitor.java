@@ -3,6 +3,7 @@ package com.epam.serices;
 import com.epam.beans.INotificationBean;
 import com.epam.common.DaoFactory;
 import com.epam.common.InvenotyToCarUpdateConverter;
+import com.epam.common.NotificationType;
 import com.epam.dao.CarUpdatesDao;
 import com.epam.dao.ICarUpdatesDao;
 import com.epam.errors.ApplicationException;
@@ -33,7 +34,8 @@ public class Monitor {
 
     public void process() throws ApplicationException {
         List<Notification> notifications = notificationBean.getAll();
-//        notifications.add(getTestNotification());
+        //notificationBean.add(getTestNotificationRequest());
+        //notifications.add(getTestNotification());
         for (Notification notirfication : notifications) {
             Collection<CarUpdate> updates = findUpdate(notirfication);
             if (updates != null) {
@@ -47,9 +49,19 @@ public class Monitor {
         notification.setId(new ObjectId());
         notification.setStyleId(200483764l);
         notification.setFacebookId("id");
-//        notification.setPriceLowerThan(null);
-//        notification.setVin(request.getVin());
-//        notification.setNotificationType(request.getNotificationType());
+        notification.setPriceLowerThan(1000l);
+        //notification.setVin("JN1AZ4EH7EM634490");
+        notification.setNotificationType(NotificationType.PRICE_LOWER_THAN);
+        return notification;
+    }
+    private NotificationRequest getTestNotificationRequest() {
+        NotificationRequest notification = new NotificationRequest();
+       // notification.setId(new ObjectId());
+        notification.setStyleId(200483764l);
+        notification.setFacebookId("id");
+        notification.setPriceLowerThan(1000l);
+        //notification.setVin("JN1AZ4EH7EM634490");
+        notification.setNotificationType(NotificationType.PRICE_LOWER_THAN);
         return notification;
     }
 

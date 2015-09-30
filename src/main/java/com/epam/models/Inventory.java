@@ -26,7 +26,7 @@ public class Inventory {
 
     private Long dealerId;
 
-    private Integer mileage;
+    private String mileage;
 
     private String listedSince;
     private String inventoryType;
@@ -41,6 +41,14 @@ public class Inventory {
     private String inventoryPrice;
 
     public Inventory() {
+    }
+
+    public String getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(String mileage) {
+        this.mileage = mileage;
     }
 
     public String getVin() {
@@ -181,14 +189,6 @@ public class Inventory {
 
     public void setPartnerPricePromise(String partnerPricePromise) {
         this.partnerPricePromise = partnerPricePromise;
-    }
-
-    public Integer getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Integer mileage) {
-        this.mileage = mileage;
     }
 
     public String getListedSince() {
