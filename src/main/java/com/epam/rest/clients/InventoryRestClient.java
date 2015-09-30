@@ -113,30 +113,31 @@ public class InventoryRestClient {
                 .get(InventoryListDto.class);
 
         final Collection<Inventory> inventories = Sets.newHashSetWithExpectedSize(inventoryResponse.getTotalCount());
-        inventories.addAll(inventoryResponse.getResultsList());
+        if (notification.getModel() == "Aspen") {
+            inventories.addAll(inventoryResponse.getResultsList());
 
-        int totalPagesRemaining = (int) Math.ceil((double) (inventoryResponse.getTotalCount() - firstPageSize) / getPageSize());
-        if (totalPagesRemaining > 0) {
+            int totalPagesRemaining = (int) Math.ceil((double) (inventoryResponse.getTotalCount() - firstPageSize) / getPageSize());
+            if (totalPagesRemaining > 0) {
 
-            final List<Callable<InventoryListDto>> jobList = Lists.newArrayList();
+                final List<Callable<InventoryListDto>> jobList = Lists.newArrayList();
 
-            for (int i = 1; i <= totalPagesRemaining; i++) {
-                int page = isEmptyFirstPage() ? i : i + 1;
-                jobList.add(new GetInventoryCallable(target, page));
-            }
-
-            try {
-                final List<Future<InventoryListDto>> results = callableExecutorService.executeJobList(jobList);
-                for (Future<InventoryListDto> result : results) {
-                    if (result.get(INVENTORY_TIMEOUT_TIME, TimeUnit.SECONDS) != null) {
-                        inventories.addAll(result.get().getResultsList());
-                    }
+                for (int i = 1; i <= totalPagesRemaining; i++) {
+                    int page = isEmptyFirstPage() ? i : i + 1;
+                    jobList.add(new GetInventoryCallable(target, page));
                 }
-            } catch (Exception e) {
+
+                try {
+                    final List<Future<InventoryListDto>> results = callableExecutorService.executeJobList(jobList);
+                    for (Future<InventoryListDto> result : results) {
+                        if (result.get(INVENTORY_TIMEOUT_TIME, TimeUnit.SECONDS) != null) {
+                            inventories.addAll(result.get().getResultsList());
+                        }
+                    }
+                } catch (Exception e) {
+                }
+
             }
-
         }
-
         return inventories;
     }
 
@@ -150,9 +151,9 @@ public class InventoryRestClient {
                 .queryParam(PAGE_SIZE, pageSize)
 //                .queryParam(INVENTORY_TYPE, type)
                 .queryParam(WITH_PHOTOS, false)
-        //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
+                        //.queryParam(FILTER, LOCATION_ID_PARAM + locationId)
 //                .queryParam(FILTER, STYLE_PARAM + (isNotEmpty(styleIds) ? join(styleIds, OR_SEPARATOR) : ANY_VALUE));
-        .queryParam(VIEW_BASIC, "true");
+                .queryParam(VIEW_BASIC, "true");
 
 //        if (notification.getStyleId() != null) {
 //            target = target.queryParam(FILTER, STYLE_PARAM + notification.getStyleId());
@@ -174,8 +175,8 @@ public class InventoryRestClient {
 //            target = target.queryParam(ADVANCED_FILTER, VIN_PARAM + notification.getVin());
 //        }
 
-        if(notification.getModel() == "Aspen" ){
-            target = target.queryParam(ADVANCED_FILTER, "mappings_|model|:Aspen" );
+        if (notification.getModel() == "Aspen") {
+            target = target.queryParam(ADVANCED_FILTER, "mappings_|model|:Aspen");
         }
 //
 //        if (color != null) {
